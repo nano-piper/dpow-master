@@ -24,18 +24,24 @@ const DB = {
       return await collection.find({}).toArray();
     },
 
-    add: async ({ ip, nano }) => {
+    add: async ({ nano }) => {
       const db = await DB.getDB();
       const collection = await db.collection(DB.client.collection);
 
       const date = new Date().toISOString();
 
       return await collection.insertOne({
-        ip,
         nano,
-        mined: 0,
+        mined: "0",
         last: `${date.substr(0, 10)} ${date.substr(11, 8)}`
       });
+    },
+
+    get: async ({ nano }) => {
+      const db = await DB.getDB();
+      const collection = await db.collection(DB.client.collection);
+
+      return await collection.find({ nano }).toArray();
     }
   },
 };
