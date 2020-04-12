@@ -25,10 +25,8 @@
       "src": "/favicon.ico",
       "dest": "/favicon.ico"
     },
-    {
-      "src": "/health",
-      "dest": "src/server/server.js"
-    },
+    { "src": "/health", "dest": "src/server/server.js" },
+    { "src": "/client", "dest": "src/server/server.js" },
     {
       "src": "/",
       "headers": {

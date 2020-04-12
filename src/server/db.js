@@ -1,3 +1,4 @@
+const url = require("url");
 const MongoClient = require("mongodb").MongoClient;
 
 const DB = {
@@ -6,8 +7,8 @@ const DB = {
   getDB: async () => {
     if (!DB.db) {
       const uri = process.env.MONGODB_URI;
-      const client = new MongoClient(uri, { useNewUrlParser: true });
-      DB.db = await client.db(uri.parse(uri).pathname.substr(1));
+      const client = await MongoClient.connect(uri, { useNewUrlParser: true });
+      DB.db = await client.db(url.parse(uri).pathname.substr(1));
     }
 
     return DB.db;
