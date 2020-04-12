@@ -2,37 +2,44 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
+      "src": "src/client/package.json",
       "use": "@now/static-build",
       "config": {
         "distDir": "build"
       }
     },
     {
-      "src": "src/server/server.js",
+      "src": "src/server/src/index.js",
       "use": "@now/node-server"
     }
   ],
   "routes": [
+    { "src": "/health", "dest": "src/server/src/index.js" },
+    { "src": "/client(.*)", "dest": "src/server/src/index.js" },
     {
       "src": "/static/(.*)",
       "headers": {
         "cache-control": "s-maxage=31536000,immutable"
       },
-      "dest": "/static/$1"
+      "dest": "/src/client/static/$1"
     },
     {
-      "src": "/favicon.ico",
-      "dest": "/favicon.ico"
+      "src": "/service-worker.js",
+      "headers": {
+        "cache-control": "s-maxage=0"
+      },
+      "dest": "/src/client/service-worker.js"
     },
-    { "src": "/health", "dest": "src/server/server.js" },
-    { "src": "/client(.*)", "dest": "src/server/server.js" },
+    { "src": "/favicon.ico", "dest": "/src/client/favicon.ico" },
+    { "src": "/logo192.png", "dest": "/src/client/logo192.png" },
+    { "src": "/logo512.png", "dest": "/src/client/logo512.png" },
+    { "src": "/manifest.json", "dest": "src/client/manifest.json" },
     {
       "src": "/",
       "headers": {
         "cache-control": "s-maxage=0"
       },
-      "dest": "/index.html"
+      "dest": "/src/client/index.html"
     }
   ],
   "env": {

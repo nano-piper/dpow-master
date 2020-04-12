@@ -33,7 +33,7 @@ const DB = {
       return await collection.insertOne({
         nano,
         mined: "0",
-        last: `${date.substr(0, 10)} ${date.substr(11, 8)}`
+        last: `${date.substr(0, 10)} ${date.substr(11, 8)}`,
       });
     },
 
@@ -42,7 +42,7 @@ const DB = {
       const collection = await db.collection(DB.client.collection);
 
       return await collection.find({ nano }).toArray();
-    }
+    },
   },
 };
 

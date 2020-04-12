@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const NanoJS = require("nanocurrency-web/dist/lib/nano-address").default;
 
-const db = require("../db");
+const db = require("../util/db");
 
 const nanoJS = new NanoJS();
 
@@ -17,8 +17,8 @@ const Client = {
     }
 
     // Format the key in the PEM form.
-    const start = '-----BEGIN PUBLIC KEY-----\n';
-    const stop = '\n-----END PUBLIC KEY-----';
+    const start = "-----BEGIN PUBLIC KEY-----\n";
+    const stop = "\n-----END PUBLIC KEY-----";
     const key = `${start}${pubKey}${stop}`;
 
     const msg = Buffer.from(nano);
@@ -38,7 +38,7 @@ const Client = {
     }
 
     return await db.client.get({ nano });
-  }
+  },
 };
 
 module.exports = Client;
