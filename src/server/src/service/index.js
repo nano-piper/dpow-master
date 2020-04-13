@@ -1,4 +1,5 @@
 const Service = {
+  pow: require("./pow"),
   client: require("./client"),
 };
 
