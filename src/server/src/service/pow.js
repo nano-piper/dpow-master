@@ -1,7 +1,7 @@
 const NanoJS = require("nanocurrency-web/dist/lib/nano-address").default;
 
 const DB = require("../util/db");
-const Pow = require("../utils/pow");
+const Pow = require("../util/pow");
 
 const nanoJS = new NanoJS();
 
