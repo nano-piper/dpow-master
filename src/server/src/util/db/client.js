@@ -1,27 +1,29 @@
 module.exports = (getCollection) => {
-  return {
+  const result = {
     collection: "clients",
-
-    all: async () => {
-      const collection = await getCollection(this.collection);
-      return await collection.find({}).toArray();
-    },
-
-    add: async ({ nano }) => {
-      const collection = await getCollection(this.collection);
-
-      const date = new Date().toISOString();
-
-      return await collection.insertOne({
-        nano,
-        mined: "0",
-        last: `${date.substr(0, 10)} ${date.substr(11, 8)}`,
-      });
-    },
-
-    get: async ({ nano }) => {
-      const collection = await getCollection(this.collection);
-      return await collection.find({ nano }).toArray();
-    },
   };
+
+  result.all = async () => {
+    const collection = await getCollection(result.collection);
+    return await collection.find({}).toArray();
+  };
+
+  result.add = async ({ nano }) => {
+    const collection = await getCollection(result.collection);
+
+    const date = new Date().toISOString();
+
+    return await collection.insertOne({
+      nano,
+      mined: "0",
+      last: `${date.substr(0, 10)} ${date.substr(11, 8)}`,
+    });
+  };
+
+  result.get = async ({ nano }) => {
+    const collection = await getCollection(result.collection);
+    return await collection.find({ nano }).toArray();
+  };
+
+  return result;
 };

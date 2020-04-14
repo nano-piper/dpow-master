@@ -11,7 +11,7 @@ const DB = {
       DB.db = await client.db(url.parse(uri).pathname.substr(1));
     }
 
-    return await DB.db.connection(collection);
+    return await DB.db.collection(collection);
   },
 };
 

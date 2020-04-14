@@ -14,7 +14,7 @@ const PowService = {
 
     const validate = await Pow.powValidate(pow, blockHash);
     if (!validate) {
-      throw new Error(`Invalid pow for ${blockHash}`);
+      throw new Error(`Invalid pow for hash: "${blockHash}"`);
     }
 
     return await DB.pow.add({ blockHash, pow, nano });

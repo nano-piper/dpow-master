@@ -3,6 +3,8 @@ const service = require("../service");
 module.exports = (app) => {
   app.post("/pow", async (req, res) => {
     try {
+      req.body = req.body || {};
+
       await service.pow.add({
         blockHash: req.body.blockHash,
         pow: req.body.pow,
