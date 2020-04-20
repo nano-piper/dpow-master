@@ -3,17 +3,61 @@ module.exports = (getCollection) => {
     collection: "pow",
   };
 
-  result.add = async ({ blockHash, pow, nano }) => {
+  result.get = async ({ blockHash }) => {
+    const collection = await getCollection(result.collection);
+    return await collection.find({ blockHash }).toArray();
+  };
+
+  result.watch = ({ blockHash }) => {
+    return new Promise((resolve, reject) => {
+      getCollection(result.collection).then((collection) => {
+        const match = {
+          $match: {
+            blockHash,
+            $and: [
+              { "updateDescription.updatedFields.pow": { $exists: true } },
+              { operationType: "update" },
+            ],
+          },
+        };
+
+        const filter = { fullDocument: "updateLookup" };
+
+        collection
+          .watch([match], filter)
+          .on("change", resolve)
+          .on("error", reject);
+      });
+    });
+  };
+
+  result.add = async ({ blockHash, nano }) => {
     const collection = await getCollection(result.collection);
 
     const date = new Date().toISOString();
 
     return await collection.insertOne({
       blockHash,
-      pow,
       nano,
       created: `${date.substr(0, 10)} ${date.substr(11, 8)}`,
     });
+  };
+
+  result.update = async ({ blockHash, miner, pow }) => {
+    const collection = await getCollection(result.collection);
+
+    const date = new Date().toISOString();
+
+    return await collection.updateOne(
+      {
+        blockHash,
+      },
+      {
+        miner,
+        pow,
+        modified: `${date.substr(0, 10)} ${date.substr(11, 8)}`,
+      }
+    );
   };
 
   return result;
