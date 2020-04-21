@@ -20,30 +20,6 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/pow/requested/count", async (req, res) => {
-    try {
-      const count = await service.pow.requestedCount();
-      res.json({ count });
-    } catch (err) {
-      res.status(400).json({
-        success: "not ok",
-        error: err.message,
-      });
-    }
-  });
-
-  app.get("/pow/completed/count", async (req, res) => {
-    try {
-      const count = await service.pow.completedCount();
-      res.json({ count });
-    } catch (err) {
-      res.status(400).json({
-        success: "not ok",
-        error: err.message,
-      });
-    }
-  });
-
   app.get("/pow/:blockHash", async (req, res) => {
     try {
       await service.pow.start({

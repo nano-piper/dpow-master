@@ -13,9 +13,14 @@ const Home = (props) => {
   // Set the miner count.
   useEffect(() => {
     const interval = setInterval(() => {
-      Service.miner.count().then(setMiners).catch(console.error);
-      Service.pow.requestedCount().then(setRequested).catch(console.error);
-      Service.pow.completedCount().then(setCompleted).catch(console.error);
+      Service.stats
+        .stats()
+        .then((stats) => {
+          setMiners(stats.minerCount);
+          setRequested(stats.requestedCount);
+          setCompleted(stats.completedCount);
+        })
+        .catch(console.error);
     }, 5000);
 
     return () => clearInterval(interval);

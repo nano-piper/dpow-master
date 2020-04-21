@@ -6,6 +6,7 @@ app.use(express.json());
 
 require("./api/client")(app);
 require("./api/pow")(app);
+require("./api/stats")(app);
 
 app.get("/health", (req, res) => {
   res.json({ success: "ok" });

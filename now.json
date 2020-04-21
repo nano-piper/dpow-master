@@ -15,6 +15,7 @@
   ],
   "routes": [
     { "src": "/health", "dest": "src/server/src/index.js" },
+    { "src": "/stats", "dest": "src/server/src/index.js" },
     { "src": "/client(.*)", "dest": "src/server/src/index.js" },
     { "src": "/pow(.*)", "dest": "src/server/src/index.js" },
     {

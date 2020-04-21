@@ -13,18 +13,6 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/client/count", async (req, res) => {
-    try {
-      const count = await service.client.count();
-      res.json({ count });
-    } catch (err) {
-      res.status(400).json({
-        success: "not ok",
-        error: err.message,
-      });
-    }
-  });
-
   app.post("/client", async (req, res) => {
     try {
       await service.client.add({
