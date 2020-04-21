@@ -10,6 +10,10 @@ const Client = {
     return await db.client.all();
   },
 
+  count: async () => {
+    return await db.client.count();
+  },
+
   add: async ({ nano, pubKey, signature }) => {
     // Validate the inputs.
     if (!nanoJS.validateNanoAddress(nano)) {

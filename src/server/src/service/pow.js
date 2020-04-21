@@ -41,6 +41,14 @@ const PowService = {
 
     return await DB.pow.update({ blockHash, miner, pow });
   },
+
+  requestedCount: async () => {
+    return await DB.pow.requestedCount();
+  },
+
+  completedCount: async () => {
+    return await DB.pow.completedCount();
+  },
 };
 
 module.exports = PowService;

@@ -60,5 +60,15 @@ module.exports = (getCollection) => {
     );
   };
 
+  result.requestedCount = async () => {
+    const collection = await getCollection(result.collection);
+    return collection.count();
+  };
+
+  result.completedCount = async () => {
+    const collection = await getCollection(result.collection);
+    return collection.find({ pow: { $exists: true } }).count();
+  };
+
   return result;
 };

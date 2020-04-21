@@ -8,6 +8,11 @@ module.exports = (getCollection) => {
     return await collection.find({}).toArray();
   };
 
+  result.count = async () => {
+    const collection = await getCollection(result.collection);
+    return collection.count();
+  };
+
   result.add = async ({ nano }) => {
     const collection = await getCollection(result.collection);
 
