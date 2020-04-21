@@ -7,7 +7,6 @@ const Timer = (props) => {
   const [timeStr, setTimeStr] = useState("");
 
   useEffect(() => {
-    console.log("hello");
     const id = setInterval(() => setTimeStr(Moment(time).fromNow()), 1000);
 
     return () => clearInterval(id);
