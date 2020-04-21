@@ -17,3 +17,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+table {
+  background: rgb(97, 218, 251) !important;
+  border-radius: 4px !important;
+}
+
+tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+th {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+  text-transform: uppercase !important;
+  font-weight: 300 !important;
+  font-size: 1rem !important;
+  line-height: 1.2 !important;
+  color: #212529 !important;
+}
+
+td {
+  color: rgb(40, 44, 52) !important;
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
