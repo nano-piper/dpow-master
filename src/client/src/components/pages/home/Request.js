@@ -18,9 +18,13 @@ const Request = ({ title, header, body }) => (
         <Table variant="dark" responsive="md">
           <thead>
             <tr>
-              {header.map((head, index) => (
-                <th key={index}>{head}</th>
-              ))}
+              {header.map((head, index) => {
+                if (head.length > 15) {
+                  return <th key={index}>{head.substr(0, 15)}...</th>;
+                } else {
+                  return <th key={index}>{head}</th>;
+                }
+              })}
             </tr>
           </thead>
           <tbody>
@@ -33,6 +37,8 @@ const Request = ({ title, header, body }) => (
                         <Timer time={item} />
                       </td>
                     );
+                  } else if (item.length > 15) {
+                    return <td key={index}>{item.substr(0, 15)}...</td>;
                   } else {
                     return <td key={index}>{item}</td>;
                   }
