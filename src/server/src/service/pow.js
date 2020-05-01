@@ -16,10 +16,12 @@ const PowService = {
     // If yes, return.
     const results = await DB.pow.get({ blockHash });
     if (Array.isArray(results) && results.length > 0) {
-      return results[0];
+      if (results[0].pow) {
+        return results[0];
+      }
+    } else {
+      await DB.pow.add({ blockHash, nano });
     }
-
-    await DB.pow.add({ blockHash, nano });
 
     // Wait for pow field to be done.
     const _results = await DB.pow.watch({ blockHash });
@@ -40,17 +42,6 @@ const PowService = {
     }
 
     return await DB.pow.update({ blockHash, miner, pow });
-  },
-
-  start: async ({ blockHash, nano }) => {
-    // Validate the blockHash.
-
-    // Validate the inputs.
-    if (!nanoJS.validateNanoAddress(nano)) {
-      throw new Error("Not a valid nano address");
-    }
-
-    return await DB.pow.add({ blockHash, nano });
   },
 
   watch: async ({ blockHash }) => {

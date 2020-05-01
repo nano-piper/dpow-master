@@ -22,19 +22,14 @@ module.exports = (app) => {
 
   app.get("/pow/:blockHash", async (req, res) => {
     try {
-      await service.pow.start({
-        blockHash: req.body.blockHash,
-        nano: req.body.nano,
-      });
-
-      // Wait for the pow to be calculated
-      const pow = await service.pow.watch({
-        blockHash: req.body.blockHash,
+      const result = await service.pow.get({
+        blockHash: req.params.blockHash,
+        nano: req.query.nano,
       });
 
       res.json({
-        blockHash: req.body.blockHash,
-        pow,
+        blockHash: req.params.blockHash,
+        pow: result.pow,
       });
     } catch (err) {
       res.status(400).json({
