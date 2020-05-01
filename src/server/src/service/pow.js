@@ -42,6 +42,21 @@ const PowService = {
     return await DB.pow.update({ blockHash, miner, pow });
   },
 
+  start: async ({ blockHash, nano }) => {
+    // Validate the blockHash.
+
+    // Validate the inputs.
+    if (!nanoJS.validateNanoAddress(nano)) {
+      throw new Error("Not a valid nano address");
+    }
+
+    return await DB.pow.add({ blockHash, nano });
+  },
+
+  watch: async ({ blockHash }) => {
+    return await DB.pow.watch({ blockHash });
+  },
+
   requestedCount: async () => {
     return await DB.pow.requestedCount();
   },

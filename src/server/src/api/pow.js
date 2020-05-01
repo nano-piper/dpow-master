@@ -27,9 +27,14 @@ module.exports = (app) => {
         nano: req.body.nano,
       });
 
+      // Wait for the pow to be calculated
+      const pow = await service.pow.watch({
+        blockHash: req.body.blockHash,
+      });
+
       res.json({
         blockHash: req.body.blockHash,
-        pow: result.pow,
+        pow,
       });
     } catch (err) {
       res.status(400).json({
